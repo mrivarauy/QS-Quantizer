@@ -26,6 +26,17 @@ Software versions:
 | wtdbg2          | 2.3       |
 
 
+## Quantization of quality scores
+We tested various quantizers, each mapping quality scores to values on a (small) set referred to as the quantization alphabet. We denote by Qi a quantizer for a quantization alphabet of size i, i > 1, where the quantization Qi (x) of a quality score x depends solely on x. The specific definitions of Q2, Q4, and Q8 are presented in tables 1, 2, and 3, respectively. All these quantizers collapse a large set of high quality scores into a single value, and define a finer partition for lower scores, which occur more frequently. We also tested constant quantizers, which map every quality score to a fixed prescribed value.
+
+
+###Tabla 1
+| Quality scores | Quantized quality score | 
+| -------------  |:-----------------------:|
+| 0....7         | 5                       |
+| 8...93         | 15                      |
+
+
 ## Assembly and Polishing of mock community
 
 We evaluated the impact of quality score quantization on the genome assembly polishing for a Zymo-BIOMICS Microbial Community Standard. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/31089679/). We assembled the genomes with Flye, and we polished this raw assembly using various polishing pipelines (Racon, Medaka, MarginPolish and HELEN). We tested each polishing pipeline on the original (non-quantized) data, and in various quantized versions. "pipeline-mock-community.sh" is the script used for these experiments.
