@@ -8,19 +8,23 @@ Softwares used in this work are listed in the table below.
 
 Software versions:
 
-| Software      | Version   |
-| ------------- |:---------:|
-| Longshot      | 0.4.1     |
-| deepVariant   | r.0.4     |
-| minimap2      | 2.15-r905 |
-| racon         | 1.3.2     |
-| marginPolish  | 1.3.0     |
-| HELEN         | 0.0.23    |
-| QUAST         | 5.0.2     |
-| metaQUAST     | 5.0.2     |
-| bedtools      | 2.27.1    |
-| samtools      | 1.9       |
-| wtdbg2        | 2.3       |
+| Software        | Version   |  | Software        | Version   |
+| -------------   |:---------:|  | -------------   |:---------:|
+| Longshot        | 0.4.1     |  | bedtools        | 2.27.1    |
+| deepVariant     | r.0.4     |  | deepVariant     | r.0.4     |
+| minimap2 (H.A.) | 2.15      |  | flye            | 2.8.2     |
+| minimap2 (Zymo) | 2.14      |  | HELEN           | 0.0.23    |
+| racon           | 1.3.2     |  | Longshot        | 0.4.1     |
+| marginPolish    | 1.3.0     |  | marginPolish    | 1.3.0     |
+| HELEN           | 0.0.23    |  | medaka          | 0.5.0     |
+| QUAST           | 5.0.2     |  | metaQUAST       | 5.0.2     |
+| metaQUAST       | 5.0.2     |  | minimap2 (H.A.) | 2.15      |
+| bedtools        | 2.27.1    |  | minimap2 (Zymo) | 2.14      |
+| samtools        | 1.9       |  | QUAST           | 5.0.2     |
+| wtdbg2          | 2.3       |  | racon           | 1.3.2     |
+| medaka          | 0.5.0     |  | samtools        | 1.9       |
+| flye            | 2.8.2     |  | wtdbg2          | 2.3       |
+
 
 ## Assembly and Polishing of mock community
 
