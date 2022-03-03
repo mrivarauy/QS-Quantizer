@@ -30,7 +30,7 @@ Software versions:
 We tested various quantizers, each mapping quality scores to values on a (small) set referred to as the quantization alphabet. We denote by Qi a quantizer for a quantization alphabet of size i, i > 1, where the quantization Qi (x) of a quality score x depends solely on x. The specific definitions of Q2, Q4, and Q8 are presented in tables 1, 2, and 3, respectively. All these quantizers collapse a large set of high quality scores into a single value, and define a finer partition for lower scores, which occur more frequently. We also tested constant quantizers, which map every quality score to a fixed prescribed value.
 
 
-###Tabla 1
+### Tabla 1
 | Quality scores | Quantized quality score | 
 | -------------  |:-----------------------:|
 | 0....7         | 5                       |
