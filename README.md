@@ -58,16 +58,16 @@ We tested various quantizers, each mapping quality scores to values on a (small)
 | 37...93        | 40                      |
 
 ### Usage
-``quantizer.py [optional arguments] input_file Qprimary Qrun output_file
+``quantizer.py [optional arguments] input_file Qprimary Qrun output_file``
 
-positional arguments:
-  input_file   Input fastq file, either in plain text formtat or gzip compressed.
-  Qprimary     Quantizer used in non-repetitive regions. One of Q2, Q4, Q8, or F10.
-  Qrun         Quantizer used near repetitive regions. One of Q2, Q4, Q8, or F10. Specify the same as Qprimary to use a fixed quantizer.
-  output_file  Output fastq file in plain text formtat.
-
-optional arguments:
-  -h, --help   show this help message and exit``
+| Positional arguments |
+| ------------------   | ------------------------------------------------------------------------------------------------------------------------ |
+| input_file           | Input fastq file, either in plain text formtat or gzip compressed |
+| Qprimary             | Quantizer used in non-repetitive regions. One of Q2, Q4, Q8, or F10 |
+| Qrun                 | Quantizer used near repetitive regions. One of Q2, Q4, Q8, or F10. Specify the same as Qprimary to use a fixed quantizer |
+| output_file          | Output fastq file in plain text format |
+| optional arguments   |
+| -h, --help           | show this help message and exit |
 
 
 ## Assembly and Polishing of mock community
