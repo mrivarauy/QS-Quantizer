@@ -18,7 +18,7 @@ Software versions:
 | marginPolish    | 1.3.0     |
 | medaka          | 0.5.0     |
 | metaQUAST       | 5.0.2     |
-| minimap2 (H.A.) | 2.15      |
+| minimap2        | 2.15      |
 | minimap2 (Zymo) | 2.14      |
 | QUAST           | 5.0.2     |
 | racon           | 1.3.2     |
