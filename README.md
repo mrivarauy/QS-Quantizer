@@ -74,6 +74,18 @@ We tested various quantizers, each mapping quality scores to values on a (small)
 
 We evaluated the impact of quality score quantization on the genome assembly polishing for a Zymo-BIOMICS Microbial Community Standard. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/31089679/). We assembled the genomes with Flye, and we polished this raw assembly using various polishing pipelines (Racon, Medaka, MarginPolish and HELEN). We tested each polishing pipeline on the original (non-quantized) data, and in various quantized versions. [pipeline-mock-community.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/mock-assembly-polishing/pipeline-mock-community.sh) is the script used for these experiments.
 
+### Software setup
+
+```
+conda create --prefix ./env_nuevos flye=2.8.2 racon=1.4.13 medaka=1.2.1 minimap2=2.17
+```
+
+### Data setup
+
+### Pipeline execution
+
+### Results
+
 ## Assembly and Polishing of human genome
 
 We evaluated the impact of quality score quantization on human genome assembly polishing for sample HG00733 with the polishing pipelines MP and Helen. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/32686750/). We used wtdbg2 for human genome assembly and Margin Polish/HELEN pipeline for polishing. These polishing pipelines were executed both for the orginal FASTQ files and for 4 bin quantized data. We carried on this comparison for several coverage scenarios, which we obtained by randomly selecting a fraction of the dataset reads. [pipeline-human-assembly.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Human%20Assembly/pipeline-human-assembly.sh) is the script used for these experiments.
