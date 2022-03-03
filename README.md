@@ -69,4 +69,4 @@ We evaluated the impact of quality score quantization on human genome assembly p
 
 ## Variant Calling
 
-We compared the nanopore variant calling performance of PEPPER-Margin-DeepVariant on human sample HG003, against variant calling on quantized versions of the same data. We performed this comparison at various coverages, ranging from 20X to 90X, and for various quantizers. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/34725481/). "pipeline-variant-calling.sh" is the script used for these experiments.
+We compared the nanopore variant calling performance of PEPPER-Margin-DeepVariant on human sample HG003, against variant calling on quantized versions of the same data. We performed this comparison at various coverages, ranging from 20X to 90X, and for various quantizers. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/34725481/). "bam-script.sh" and "pipeline-variant-calling.sh" are the scripts used for these experiments.
