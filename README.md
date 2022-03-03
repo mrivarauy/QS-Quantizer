@@ -19,7 +19,8 @@ Software versions:
 | QUAST         | 5.0.2     |
 | metaQUAST     | 5.0.2     |
 | bedtools      | 2.27.1    |
-
+| samtools      | 1.9       |
+| wtdbg2        | 2.3       |
 
 ## Assembly and Polishing of mock community
 
