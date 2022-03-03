@@ -58,7 +58,9 @@ We tested various quantizers, each mapping quality scores to values on a (small)
 | 37...93        | 40                      |
 
 ### Usage
-``quantizer.py [optional arguments] input_file Qprimary Qrun output_file``
+```
+quantizer.py [optional arguments] input_file Qprimary Qrun output_file
+```
 
 | Positional arguments        |                                                                                                                          | 
 | ------------------          | ------------------------------------------------------------------------------------------------------------------------ |
@@ -75,10 +77,11 @@ We tested various quantizers, each mapping quality scores to values on a (small)
 We evaluated the impact of quality score quantization on the genome assembly polishing for a Zymo-BIOMICS Microbial Community Standard. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/31089679/). We assembled the genomes with Flye, and we polished this raw assembly using various polishing pipelines (Racon, Medaka, MarginPolish and HELEN). We tested each polishing pipeline on the original (non-quantized) data, and in various quantized versions. [pipeline-mock-community.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/mock-assembly-polishing/pipeline-mock-community.sh) is the script used for these experiments.
 
 ### Software setup
-
+Creating an environment with software versions we used.
 ```
-conda create --prefix ./env_nuevos flye=2.8.2 racon=1.4.13 medaka=1.2.1 minimap2=2.17
+conda create -n mock-env -c bioconda python=3.6 flye=2.8.2 racon=1.3.2 minimap2=2.14  quast=5.0.2 samtools=1.9
 ```
+Chequear porque no anda en torito
 
 ### Data setup
 
@@ -89,6 +92,46 @@ conda create --prefix ./env_nuevos flye=2.8.2 racon=1.4.13 medaka=1.2.1 minimap2
 ## Assembly and Polishing of human genome
 
 We evaluated the impact of quality score quantization on human genome assembly polishing for sample HG00733 with the polishing pipelines MP and Helen. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/32686750/). We used wtdbg2 for human genome assembly and Margin Polish/HELEN pipeline for polishing. These polishing pipelines were executed both for the orginal FASTQ files and for 4 bin quantized data. We carried on this comparison for several coverage scenarios, which we obtained by randomly selecting a fraction of the dataset reads. [pipeline-human-assembly.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Human%20Assembly/pipeline-human-assembly.sh) is the script used for these experiments.
+
+### Software setup
+
+Creating an environment with software versions we used.
+```
+conda create -n h-polishing-env -c bioconda python=3.6 minimap2=2.15  quast=5.0.2 samtools=1.9 wtdbg=2.3 
+```
+
+For installing marginPolish run the following commands (marginPolish not available for installation with conda) 
+
+**Install dependencies**
+```
+apt-get -y install git make gcc g++ autoconf zlib1g-dev libcurl4-openssl-dev libbz2-dev libhdf5-dev
+```
+
+**Compilation**
+
+Check out the repository and submodules:
+````
+git clone https://github.com/UCSC-nanopore-cgl/marginPolish.git
+cd marginPolish
+git submodule update --init
+````
+Make build directory:
+```
+mkdir build
+cd build
+```
+Generate Makefile and run:
+```
+cmake ..
+make
+./marginPolish
+```
+### Data setup
+
+### Pipeline execution
+
+### Results
+
 
 ## Variant Calling
 
