@@ -62,12 +62,12 @@ We tested various quantizers, each mapping quality scores to values on a (small)
 
 | Positional arguments        |                                                                                                                          | 
 | ------------------          | ------------------------------------------------------------------------------------------------------------------------ |
-| input_file                  | Input fastq file, either in plain text formtat or gzip compressed                                                        |
+| input_file                  | Input fastq file, either in plain text format or gzip compressed                                                        |
 | Qprimary                    | Quantizer used in non-repetitive regions. One of Q2, Q4, Q8, or F10                                                      |
 | Qrun                        | Quantizer used near repetitive regions. One of Q2, Q4, Q8, or F10. Specify the same as Qprimary to use a fixed quantizer |
 | output_file                 | Output fastq file in plain text format                                                                                   |
 | **Optional arguments**      |                                                                                                                          |
-| -h, --help                  | show this help message and exit                                                                                          |
+| -h, --help                  | Show this help message and exit                                                                                          |
 
 
 ## Assembly and Polishing of mock community
