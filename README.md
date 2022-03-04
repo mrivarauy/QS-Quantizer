@@ -126,6 +126,10 @@ cmake ..
 make
 ./marginPolish
 ```
+
+HELEN is used through docker so no installation in needed
+
+
 ### Data setup
 
 ### Pipeline execution
