@@ -97,7 +97,7 @@ We evaluated the impact of quality score quantization on human genome assembly p
 
 Creating an environment with software versions we used.
 ```
-conda create -n h-polishing-env -c bioconda python=3.6 minimap2=2.15  quast=5.0.2 samtools=1.9 wtdbg=2.3 
+conda create -n hp-env -c bioconda python=3.6 minimap2=2.15  quast=5.0.2 samtools=1.9 wtdbg=2.3 
 ```
 
 For installing marginPolish run the following commands (marginPolish not available for installation with conda) 
