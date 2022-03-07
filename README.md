@@ -148,12 +148,22 @@ Subsampling fastq files
 ```
 python -u sample_fastq.py -f 0.2 ./input/HG00733_2.fastq ./input/HG00733_2-20p.fastq &
 ```
+| Positional arguments |                                            | 
+| ------------------   | -------------------------------------------|
+| -f                   | Fraction of complete fastq file to obtain  |
+| first argument       | Complete fastq file                        |
+| second argument      | File name for downsampled fastq            |
 
+Change -f value for different subsampling. Respect structure of output file name, change only percentage number. 
 
 ### Pipeline execution
-
+For pipeline execution run the following command
+```
+sudo ./pipeline-human-assembly.sh 
+```
+Change variables FRACTION and QUANT for different runs. i.e. for 20% 4bin run, set FRACTION in "20" and QUANT in "4bin"
 ### Results
-
+Mismatches per 100kbp count can be found in report.txt file in QUAST directory.
 
 ## Variant Calling
 
