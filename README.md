@@ -195,6 +195,15 @@ wget -P ./original/input https://s3-us-west-2.amazonaws.com/human-pangenomics/NH
 wget -P ./original/input https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_3_Guppy_4.2.2_prom.fastq.gz # download fastq files
 
 ```
+For simulate different coverage scenarios we downsampled complete .bam files using the following command:
+```
+samtools view -s 0.FRAC -@<THREDS> -b HG003_original.sorted.bam > HG003_original_20.sorted.bam
+```
+| Positional arguments |                                                                                                                                 | 
+| ------------------   | --------------------------------------------------------------------------------------------------------------------------------|
+| FRAC                 | Fraction of complete bam file to obtain (i.e. 55 for 50X coverage)                                                              |
+| -b                   | Complete bam file (change original to 2bin or 4bin, etc for quantized data)                                                     |
+| OUTPUT_DOWNSAMPLED   | File name for downsampled bam file (change original to 2bin or 4bin, etc for quantized data and number fos different coverages) |
 
 
 ### Pipeline execution
