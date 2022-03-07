@@ -125,6 +125,7 @@ Generate Makefile and run:
 cmake ..
 make
 ./marginPolish
+cd ../../
 ```
 
 HELEN is used through docker so installation is not needed
@@ -135,16 +136,17 @@ Creating directory structure
 ```
 mkdir human-assembly
 cd human-assembly
-mkdir truth-assemblies input  
+mkdir truth-assemblies input helen-models 
 ```
 Downloading data
 ```
 wget -P ./truth-assemblies https://storage.googleapis.com/kishwar-helen/truth_assemblies/HG00733/hg00733_truth_assembly.fa
-wget -P ./input -c https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG00733/nanopore/HG00733_2.fastq.gz &
+wget -P ./input -c https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG00733/nanopore/HG00733_2.fastq.gz
+wget -P ./helen-models https://storage.googleapis.com/kishwar-helen/helen_trained_models/v0.0.1/r941_flip231_v001.pkl
 ```
 Subsampling fastq files
 ```
-python -u sample_fastq.py -f 0.2 HG00733_2.fastq HG00733_2-20p.fastq &
+python -u sample_fastq.py -f 0.2 ./input/HG00733_2.fastq ./input/HG00733_2-20p.fastq &
 ```
 
 
