@@ -190,6 +190,10 @@ wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/Ashkenazim
 wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed #download bed file for performance evaluation
 wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz # download human genome reference GRCh38
 wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.fai # download human genome reference GRCh38
+wget -P ./original/input https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_1_Guppy_4.2.2_prom.fastq.gz # download fastq files
+wget -P ./original/input https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_2_Guppy_4.2.2_prom.fastq.gz # download fastq files
+wget -P ./original/input https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_3_Guppy_4.2.2_prom.fastq.gz # download fastq files
+
 ```
 
 
