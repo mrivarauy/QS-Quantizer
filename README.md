@@ -172,7 +172,7 @@ Mismatches per 100kbp count can be found in report.txt file in QUAST directory.
 We compared the nanopore variant calling performance of PEPPER-Margin-DeepVariant on human sample HG003, against variant calling on quantized versions of the same data. We performed this comparison at various coverages, ranging from 20X to 90X, and for various quantizers. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/34725481/). [bam-script.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/bam-script.sh) and [pipeline-variant-calling.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/pipeline-variant-calling.sh) are the scripts used for these experiments.
 
 ### Software setup
-For running this experiments we used above created quant-env conda environment. PEPPER-Margin-DeepVariant (variant caller) and hap.py (for evaluating) are used through docker so no installation is needed.
+For running this experiments we used above created human-env conda environment. PEPPER-Margin-DeepVariant (variant caller) and hap.py (for evaluating) are used through docker so no installation is needed.
 
 ### Data setup
 Creating directory structure
