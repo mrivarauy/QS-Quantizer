@@ -182,17 +182,25 @@ cd human-vc
 mkdir original original/input original/output bins bins/input bins/output ref_dir
 
 ```
-Downloading truth variants for variant calling evaluation and GRCh38 human genome reference
+Downloading human genome reference GRCh38, truth variants and bed file for variant calling performance evaluation
 
 ```
-wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark.vcf.gz
-wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark.vcf.gz.tbi
-wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed
-wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz
-wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.fai
+wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark.vcf.gz #download truth variants file
+wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark.vcf.gz.tbi #download truth variants file
+wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed #download bed file for performance evaluation
+wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz # download human genome reference GRCh38
+wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.fai # download human genome reference GRCh38
 ```
 
 
 ### Pipeline execution
-
+For pipeline execution run the following commands
+"Bam script" is used for mapping reads to genome reference (needed for Variant Calling pipeline).
+"Pipeline-variant-calling" is used for Variant Calling and performance evaluation.
+```
+./bam_script.sh
+sudo ./pipeline-variant-calling.sh
+```
+For different runs change value of variables QUANT and COV (coverage) in the script. i.e. for 20X 4bin run, set COV in "20" and QUANT in "4bin"
 ### Results
+Metrics of variant calling performance evaluation are in "happy.output.summary.csv" file for each run in PEPPER-Margin-DeepVariant output directory.
