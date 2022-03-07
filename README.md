@@ -203,7 +203,7 @@ samtools view -s 0.FRAC -@<THREDS> -b HG003_original.sorted.bam > HG003_original
 | ------------------   | --------------------------------------------------------------------------------------------------------------------------------|
 | FRAC                 | Fraction of complete bam file to obtain (i.e. 55 for 50X coverage)                                                              |
 | -b                   | Complete bam file (change original to 2bin or 4bin, etc for quantized data)                                                     |
-| OUTPUT_DOWNSAMPLED   | File name for downsampled bam file (change original to 2bin or 4bin, etc for quantized data and number fos different coverages) |
+| > output file        | File name for downsampled bam file (change original to 2bin or 4bin, etc for quantized data and number fos different coverages) |
 
 
 ### Pipeline execution
