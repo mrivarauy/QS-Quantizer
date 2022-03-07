@@ -97,7 +97,7 @@ We evaluated the impact of quality score quantization on human genome assembly p
 
 Creating an environment with software versions we used.
 ```
-conda create -n hp-env -c bioconda python=3.6 minimap2=2.15  quast=5.0.2 samtools=1.9 wtdbg=2.3 
+conda create -n human-env -c bioconda python=3.6 minimap2=2.15  quast=5.0.2 samtools=1.9 wtdbg=2.3 
 ```
 
 For installing marginPolish run the following commands (marginPolish not available for installation with conda) 
@@ -140,9 +140,10 @@ mkdir truth-assemblies input helen-models
 ```
 Downloading data
 ```
-wget -P ./truth-assemblies https://storage.googleapis.com/kishwar-helen/truth_assemblies/HG00733/hg00733_truth_assembly.fa
-wget -P ./input -c https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG00733/nanopore/HG00733_2.fastq.gz
-wget -P ./helen-models https://storage.googleapis.com/kishwar-helen/helen_trained_models/v0.0.1/r941_flip231_v001.pkl
+wget -P ./truth-assemblies https://storage.googleapis.com/kishwar-helen/truth_assemblies/HG00733/hg00733_truth_assembly.fa #download truth assembly
+wget -P ./input -c https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG00733/nanopore/HG00733_2.fastq.gz #download fastq file
+wget -P ./helen-models https://storage.googleapis.com/kishwar-helen/helen_trained_models/v0.0.1/r941_flip231_v001.pkl #download helen-model
+wget https://github.com/aseetharam/common_scripts/blob/master/sample_fastq.py #download subsampling script
 ```
 Subsampling fastq files
 ```
@@ -161,10 +162,26 @@ For pipeline execution run the following command
 ```
 sudo ./pipeline-human-assembly.sh 
 ```
-Change variables FRACTION and QUANT for different runs. i.e. for 20% 4bin run, set FRACTION in "20" and QUANT in "4bin"
+For different runs change value of variables FRACTION and QUANT in the script. i.e. for 20% 4bin run, set FRACTION in "20" and QUANT in "4bin"
+
 ### Results
 Mismatches per 100kbp count can be found in report.txt file in QUAST directory.
 
 ## Variant Calling
 
 We compared the nanopore variant calling performance of PEPPER-Margin-DeepVariant on human sample HG003, against variant calling on quantized versions of the same data. We performed this comparison at various coverages, ranging from 20X to 90X, and for various quantizers. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/34725481/). [bam-script.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/bam-script.sh) and [pipeline-variant-calling.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/pipeline-variant-calling.sh) are the scripts used for these experiments.
+
+### Software setup
+For running this experiments we used above created quant-env conda environment. PEPPER-Margin-DeepVariant (variant caller) and hap.py (for evaluating) are used through docker so no installation is needed.
+
+### Data setup
+Creating directory structure
+```
+mkdir human-vc
+cd human-vc
+mkdir original original/input original/output bins bins/input bins/output
+
+```
+### Pipeline execution
+
+### Results
