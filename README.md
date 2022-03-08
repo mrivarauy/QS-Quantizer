@@ -174,10 +174,11 @@ Mismatches per 100kbp count can be found in report.txt file in QUAST directory.
 
 ## Variant Calling
 
-We compared the nanopore variant calling performance of PEPPER-Margin-DeepVariant on human sample HG003, against variant calling on quantized versions of the same data. We performed this comparison at various coverages, ranging from 20X to 90X, and for various quantizers. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/34725481/).[pipeline-variant-calling.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/pipeline-variant-calling.sh) is the script used for these experiments.
+We compared the nanopore variant calling performance of PEPPER-Margin-DeepVariant on human sample HG003, against variant calling on quantized versions of the same data. We performed this comparison at various coverages, ranging from 20X to 90X, and for various quantizers. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/34725481/). We used [pipeline-variant-calling.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/pipeline-variant-calling.sh) script for these experiments.
 
 ### Software setup
 For running this experiments we used the conda environment human-env created in the previous section. PEPPER-Margin-DeepVariant (variant caller) and hap.py (for evaluating) are used through singularity so no installation is needed.
+Click [here](https://sylabs.io/guides/3.0/user-guide/installation.html) for singularity installation on Ubuntu.
 
 ### Data setup
 Creating directory structure
