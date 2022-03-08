@@ -140,7 +140,7 @@ mkdir human-assembly
 cd human-assembly
 mkdir truth-assemblies input helen-models 
 ```
-Downloading data
+Downloading required data
 ```
 wget -P ./truth-assemblies https://storage.googleapis.com/kishwar-helen/truth_assemblies/HG00733/hg00733_truth_assembly.fa #download truth assembly
 wget -P ./input -c https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG00733/nanopore/HG00733_2.fastq.gz #download fastq file
@@ -187,7 +187,7 @@ cd human-vc
 mkdir bins ref_dir original-fastq
 
 ```
-Downloading human genome reference GRCh38, truth variants and bed file for variant calling performance evaluation
+Downloading required data
 
 ```
 wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark.vcf.gz #download truth variants file
@@ -217,4 +217,5 @@ and for quantizer (Q2, Q8) run:
 ```
 
 ### Results
-Metrics of variant calling performance evaluation are in "happy.output.summary.csv" file for each run in PEPPER-Margin-DeepVariant output directory.
+Metrics of variant calling performance evaluation are in XXx_happy.output.summary.csv files for each run in ./bins/QxQx/report/ directory.
+For example, metrics of performance evaluation using quantizer Q4 and coverage 50x are in ./bins/Q4Q4/report/50x_happy.output.summary.csv file.
