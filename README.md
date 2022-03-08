@@ -138,13 +138,43 @@ numpy==1.19.2
 tensorflow #this comes with keras 2.1.6 so a safe bet
 pysam
 ````
+Installing flye in a different environment:
+```
+conda create -n flye-env -c bioconda flye=2.8.2
+```
 ### Data setup
 
-
+Creating directory structure
+```
+mkdir mock
+cd mock
+mkdir ref-dir original-fastq bins medaka-model
+```
+Downloading required data
+```
+wget -P ./original-fastq https://nanopore.s3.climb.ac.uk/mock/Zymo-GridION-EVEN-3Peaks-R103-merged.fq.gz #download fastq files
+wget -P ./ref-dir http://nanopore.s3.climb.ac.uk/mockcommunity/v2/Zymo-Isolates-SPAdes-Illumina.fasta #download reference fasta file
+wget -P ../helen-models https://storage.googleapis.com/kishwar-helen/models_helen/HELEN_r103_guppy_microbial.pkl #download helen-model
+wget -P ./medaka-model https://github.com/nanoporetech/medaka/raw/master/medaka/data/r103_min_high_g345_model.hdf5 #download medaka-model
+```
 
 ### Pipeline execution
-
+For mock pipeline execution using quantizer Qx run the command:
+```
+./pipeline-mock-community.sh Qx Qx
+```
+For example, for quantizer Q4 run:
+```
+./pipeline-mock-community.sh Q4 Q4
+```
+and for quantizer (Q2, Q8) run:
+```
+./pipeline-mock-community.sh Q2 Q8
+```
 ### Results
+Mismatches per 100kbp count can be found in report.txt files for each run in ./bins/QxQx/output/mQ_report_RUN/ directory.
+For example, performance evaluation of Medaka run using quantizer Q4 are in ./bins/Q4Q4/output/mQ_report_medaka/report.txt file.
+
 
 ## Assembly and Polishing of human genome
 
@@ -201,7 +231,7 @@ Downloading required data
 ```
 wget -P ./truth-assemblies https://storage.googleapis.com/kishwar-helen/truth_assemblies/HG00733/hg00733_truth_assembly.fa #download truth assembly
 wget -P ./input -c https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG00733/nanopore/HG00733_2.fastq.gz #download fastq file
-wget -P ./helen-models https://storage.googleapis.com/kishwar-helen/helen_trained_models/v0.0.1/r941_flip231_v001.pkl #download helen-model
+wget -P ../helen-models https://storage.googleapis.com/kishwar-helen/helen_trained_models/v0.0.1/r941_flip231_v001.pkl #download helen-model
 wget https://github.com/aseetharam/common_scripts/blob/master/sample_fastq.py #download subsampling script
 ```
 Subsampling fastq files
