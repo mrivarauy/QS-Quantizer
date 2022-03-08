@@ -79,7 +79,7 @@ We evaluated the impact of quality score quantization on the genome assembly pol
 ### Software setup
 Creating an environment with software versions we used.
 ```
-conda create --prefix ./env_paper python=3.6 pilon=1.23 racon=1.3.2 minimap2=2.14 kraken2 checkm-genome quast=5.0.2
+conda create --prefix ./mock-env -c bioconda python=3.6 pilon=1.23 racon=1.3.2 minimap2=2.14 kraken2 checkm-genome quast=5.0.2
 ```
 For installing marginPolish run the following commands (marginPolish not available for installation with conda) 
 
