@@ -134,8 +134,8 @@ cffi
 h5py
 intervaltree
 keras==2.1.6 #has CuDNNGRU-compatible GRU
-tensorflow==1.12.0 #this comes with keras 2.1.6 so a safe bet
-numpy
+numpy==1.19.2
+tensorflow #this comes with keras 2.1.6 so a safe bet
 pysam
 ````
 ### Data setup
