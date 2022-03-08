@@ -163,7 +163,7 @@ python -u sample_fastq.py -f 0.6 ./input/HG00733_2.fastq ./input/HG00733_2-60p.f
 ### Pipeline execution
 For pipeline execution run the following command
 ```
-sudo ./pipeline-human-assembly.sh 
+./pipeline-human-assembly.sh 
 ```
 For different runs change value of variables FRACTION and QUANT in the script. i.e. for 20% 4bin run, set FRACTION in "20" and QUANT in "4bin"
 
@@ -182,7 +182,7 @@ Creating directory structure
 ```
 mkdir human-vc
 cd human-vc
-mkdir original original/input original/output bins bins/input bins/output ref_dir
+mkdir bins ref_dir original-fastq
 
 ```
 Downloading human genome reference GRCh38, truth variants and bed file for variant calling performance evaluation
@@ -193,20 +193,17 @@ wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/Ashkenazim
 wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed #download bed file for performance evaluation
 wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz # download human genome reference GRCh38
 wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.fai # download human genome reference GRCh38
-wget -P ./original/input https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_1_Guppy_4.2.2_prom.fastq.gz # download fastq files
-wget -P ./original/input https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_2_Guppy_4.2.2_prom.fastq.gz # download fastq files
-wget -P ./original/input https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_3_Guppy_4.2.2_prom.fastq.gz # download fastq files
+wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_1_Guppy_4.2.2_prom.fastq.gz # download fastq files
+wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_2_Guppy_4.2.2_prom.fastq.gz # download fastq files
+wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_3_Guppy_4.2.2_prom.fastq.gz # download fastq files
 
 ```
 
 ### Pipeline execution
-For pipeline execution run the following commands
-"Bam script" is used for mapping reads to genome reference (needed for Variant Calling pipeline).
-"Pipeline-variant-calling" is used for Variant Calling and performance evaluation.
+For pipeline execution run the following command:
 ```
-./bam_script.sh
-sudo ./pipeline-variant-calling.sh
+./pipeline-variant-calling.sh QxQx
 ```
-For different runs change value of variables QUANT and COV (coverage) in the script. i.e. for 20X 4bin run, set COV in "20" and QUANT in "4bin"
+For different quantization change value of QUANT variable in the script. i.e. for 20X 4bin run, set COV in "20" and QUANT in "4bin"
 ### Results
 Metrics of variant calling performance evaluation are in "happy.output.summary.csv" file for each run in PEPPER-Margin-DeepVariant output directory.
