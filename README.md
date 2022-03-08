@@ -126,17 +126,18 @@ Changes are:
 
 After that requirements.txt file should look like this:
 
-># medaka requirements. 
-># Add comments to keep track of why we are using particular versions
->biopython
->cffi
->h5py
->intervaltree
->keras==2.1.6 #has CuDNNGRU-compatible GRU
->tensorflow==1.12.0 #this comes with keras 2.1.6 so a safe bet
->numpy
->pysam
-
+````
+# medaka requirements. 
+# Add comments to keep track of why we are using particular versions
+biopython
+cffi
+h5py
+intervaltree
+keras==2.1.6 #has CuDNNGRU-compatible GRU
+tensorflow==1.12.0 #this comes with keras 2.1.6 so a safe bet
+numpy
+pysam
+````
 ### Data setup
 
 
