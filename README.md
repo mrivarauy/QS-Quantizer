@@ -128,7 +128,9 @@ make
 cd ../../
 ```
 
-HELEN is used through docker so installation is not needed
+HELEN is used through docker so installation is not needed. 
+
+Click [here](https://docs.docker.com/engine/install/ubuntu/) for Ubuntu docker installation. If not configured for running on Rootless mode check this [link](https://docs.docker.com/engine/security/rootless/) or change [pipeline-human-assembly.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Human%20Assembly/pipeline-human-assembly.sh) script to be executed with sudo permission. 
 
 
 ### Data setup
@@ -172,10 +174,10 @@ Mismatches per 100kbp count can be found in report.txt file in QUAST directory.
 
 ## Variant Calling
 
-We compared the nanopore variant calling performance of PEPPER-Margin-DeepVariant on human sample HG003, against variant calling on quantized versions of the same data. We performed this comparison at various coverages, ranging from 20X to 90X, and for various quantizers. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/34725481/). [bam-script.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/bam-script.sh) and [pipeline-variant-calling.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/pipeline-variant-calling.sh) are the scripts used for these experiments.
+We compared the nanopore variant calling performance of PEPPER-Margin-DeepVariant on human sample HG003, against variant calling on quantized versions of the same data. We performed this comparison at various coverages, ranging from 20X to 90X, and for various quantizers. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/34725481/).[pipeline-variant-calling.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/pipeline-variant-calling.sh) is the script used for these experiments.
 
 ### Software setup
-For running this experiments we used the conda environment human-env created in the previous section. PEPPER-Margin-DeepVariant (variant caller) and hap.py (for evaluating) are used through docker so no installation is needed.
+For running this experiments we used the conda environment human-env created in the previous section. PEPPER-Margin-DeepVariant (variant caller) and hap.py (for evaluating) are used through singularity so no installation is needed.
 
 ### Data setup
 Creating directory structure
@@ -196,14 +198,23 @@ wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_0
 wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_1_Guppy_4.2.2_prom.fastq.gz # download fastq files
 wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_2_Guppy_4.2.2_prom.fastq.gz # download fastq files
 wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_3_Guppy_4.2.2_prom.fastq.gz # download fastq files
-
+wget https://github.com/mrivarauy/QS-Quantizer/blob/main/quantizer.py #download quantizer script
 ```
 
 ### Pipeline execution
-For pipeline execution run the following command:
+For variant calling pipeline execution using quantizer Qx run the command:
+
 ```
-./pipeline-variant-calling.sh QxQx
+./pipeline-variant-calling.sh Qx Qx
 ```
-For different quantization change value of QUANT variable in the script. i.e. for 20X 4bin run, set COV in "20" and QUANT in "4bin"
+For example, for quantizer Q4 run:
+```
+./pipeline-variant-calling.sh Q4 Q4
+```
+and for quantizer (Q2, Q8) run:
+```
+./pipeline-variant-calling.sh Q2 Q8
+```
+
 ### Results
 Metrics of variant calling performance evaluation are in "happy.output.summary.csv" file for each run in PEPPER-Margin-DeepVariant output directory.
