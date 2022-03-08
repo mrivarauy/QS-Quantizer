@@ -146,16 +146,19 @@ wget -P ./helen-models https://storage.googleapis.com/kishwar-helen/helen_traine
 wget https://github.com/aseetharam/common_scripts/blob/master/sample_fastq.py #download subsampling script
 ```
 Subsampling fastq files
-```
-python -u sample_fastq.py -f 0.2 ./input/HG00733_2.fastq ./input/HG00733_2-20p.fastq &
-```
-| Positional arguments |                                            | 
-| ------------------   | -------------------------------------------|
-| -f                   | Fraction of complete fastq file to obtain  |
-| first argument       | Complete fastq file                        |
-| second argument      | File name for downsampled fastq            |
 
-Change -f value for different subsampling. Respect structure of output file name, change only percentage number. 
+For downsampling to xx% of the reads use the command:
+```
+python -u sample_fastq.py -f 0.xx ./input/HG00733_2.fastq ./input/HG00733_2-xxp.fastq
+```
+For example, for 20% run:
+```
+python -u sample_fastq.py -f 0.2 ./input/HG00733_2.fastq ./input/HG00733_2-20p.fastq
+```
+and for 60% run:
+```
+python -u sample_fastq.py -f 0.6 ./input/HG00733_2.fastq ./input/HG00733_2-60p.fastq
+```
 
 ### Pipeline execution
 For pipeline execution run the following command
@@ -172,7 +175,7 @@ Mismatches per 100kbp count can be found in report.txt file in QUAST directory.
 We compared the nanopore variant calling performance of PEPPER-Margin-DeepVariant on human sample HG003, against variant calling on quantized versions of the same data. We performed this comparison at various coverages, ranging from 20X to 90X, and for various quantizers. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/34725481/). [bam-script.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/bam-script.sh) and [pipeline-variant-calling.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/pipeline-variant-calling.sh) are the scripts used for these experiments.
 
 ### Software setup
-For running this experiments we used above created human-env conda environment. PEPPER-Margin-DeepVariant (variant caller) and hap.py (for evaluating) are used through docker so no installation is needed.
+For running this experiments we used the conda environment human-env created in the previous section. PEPPER-Margin-DeepVariant (variant caller) and hap.py (for evaluating) are used through docker so no installation is needed.
 
 ### Data setup
 Creating directory structure
@@ -195,16 +198,6 @@ wget -P ./original/input https://s3-us-west-2.amazonaws.com/human-pangenomics/NH
 wget -P ./original/input https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_3_Guppy_4.2.2_prom.fastq.gz # download fastq files
 
 ```
-For simulate different coverage scenarios we downsampled complete .bam files using the following command:
-```
-samtools view -s 0.FRAC -@<THREDS> -b HG003_original.sorted.bam > HG003_original_20.sorted.bam
-```
-| Positional arguments |                                                                                                                                 | 
-| ------------------   | --------------------------------------------------------------------------------------------------------------------------------|
-| FRAC                 | Fraction of complete bam file to obtain (i.e. 55 for 50X coverage)                                                              |
-| -b                   | Complete bam file (change original to 2bin or 4bin, etc for quantized data)                                                     |
-| > output file        | File name for downsampled bam file (change original to 2bin or 4bin, etc for quantized data and number fos different coverages) |
-
 
 ### Pipeline execution
 For pipeline execution run the following commands
