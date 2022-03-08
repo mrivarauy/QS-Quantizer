@@ -79,11 +79,67 @@ We evaluated the impact of quality score quantization on the genome assembly pol
 ### Software setup
 Creating an environment with software versions we used.
 ```
-conda create -n mock-env -c bioconda python=3.6 flye=2.8.2 racon=1.3.2 minimap2=2.14  quast=5.0.2 samtools=1.9
+conda create --prefix ./env_paper python=3.6 pilon=1.23 racon=1.3.2 minimap2=2.14 kraken2 checkm-genome quast=5.0.2
 ```
-Chequear porque no anda en torito
+For installing marginPolish run the following commands (marginPolish not available for installation with conda) 
+
+**Install dependencies**
+```
+apt-get -y install git make gcc g++ autoconf zlib1g-dev libcurl4-openssl-dev libbz2-dev libhdf5-dev
+```
+
+**Compilation**
+
+Check out the repository and submodules:
+````
+git clone https://github.com/UCSC-nanopore-cgl/marginPolish.git
+cd marginPolish
+git submodule update --init
+````
+Make build directory:
+```
+mkdir build
+cd build
+```
+Generate Makefile and run:
+```
+cmake ..
+make
+./marginPolish
+```
+For using medaka, we installed it from source because version 0.5.0 is not available by conda.
+
+First download medaka directory from [this](https://files.pythonhosted.org/packages/ed/f2/001f30f4b12de47daf3660d07c05a5256c5d5917353b3f97864fb01887ca/medaka-0.5.0.tar.gz) link. 
+```
+wget https://files.pythonhosted.org/packages/ed/f2/001f30f4b12de47daf3660d07c05a5256c5d5917353b3f97864fb01887ca/medaka-0.5.0.tar.gz
+```
+
+Unzip directory
+```
+tar -xvzf medaka-0.5.0.tar.gz
+```
+This old version has dependencies problems, so we modified two lines in requirements.txt file in order to make installation possible.
+Changes are:
+- numpy==1.19.2 instead of numpy
+- tensorflow instead of tensorflow==1.12.0
+- change places between numpy line and tensorflow line
+
+After that requirements.txt file should look like this:
+
+># medaka requirements. 
+># Add comments to keep track of why we are using particular versions
+>biopython
+>cffi
+>h5py
+>intervaltree
+>keras==2.1.6 #has CuDNNGRU-compatible GRU
+>tensorflow==1.12.0 #this comes with keras 2.1.6 so a safe bet
+>numpy
+>pysam
 
 ### Data setup
+
+
 
 ### Pipeline execution
 
