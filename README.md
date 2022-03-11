@@ -107,7 +107,7 @@ cmake ..
 make
 ./marginPolish
 ```
-For using medaka, we installed it from source because version 0.5.0 is not available by conda.
+For installing medaka 0.5.0 run the following commands (medaka 0.5.0 not available for installation with conda)
 
 First download medaka directory from [this](https://files.pythonhosted.org/packages/ed/f2/001f30f4b12de47daf3660d07c05a5256c5d5917353b3f97864fb01887ca/medaka-0.5.0.tar.gz) link. 
 ```
