@@ -286,7 +286,7 @@ wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_0
 wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_1_Guppy_4.2.2_prom.fastq.gz # download fastq files
 wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_2_Guppy_4.2.2_prom.fastq.gz # download fastq files
 wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_3_Guppy_4.2.2_prom.fastq.gz # download fastq files
-wget https://github.com/mrivarauy/QS-Quantizer/blob/main/quantizer.py #download quantizer script
+wget https://raw.githubusercontent.com/mrivarauy/QS-Quantizer/main/quantizer.py?token=GHSAT0AAAAAABR6SEXZIOTAKYGBJFEJ6X6IYRPMKLA #download quantizer script
 ```
 
 ### Pipeline execution
