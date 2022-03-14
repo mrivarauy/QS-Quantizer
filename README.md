@@ -232,7 +232,7 @@ Downloading required data
 wget -P ./truth-assemblies https://storage.googleapis.com/kishwar-helen/truth_assemblies/HG00733/hg00733_truth_assembly.fa #download truth assembly
 wget -P ./input -c https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG00733/nanopore/HG00733_2.fastq.gz #download fastq file
 wget -P ../helen-models https://storage.googleapis.com/kishwar-helen/helen_trained_models/v0.0.1/r941_flip231_v001.pkl #download helen-model
-wget https://github.com/aseetharam/common_scripts/blob/master/sample_fastq.py #download subsampling script
+wget https://raw.githubusercontent.com/aseetharam/common_scripts/master/sample_fastq.py #download subsampling script
 ```
 Subsampling fastq files
 
