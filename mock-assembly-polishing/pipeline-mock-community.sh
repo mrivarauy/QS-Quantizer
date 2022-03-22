@@ -46,7 +46,9 @@ wait
 
 ##assembly using flye
 if [ $flyeflag == true ]; then
+	conda activate flye-env
 	flye --nano-raw ${READS_QUAN} --meta --iterations 0 --threads ${NPROC} --out-dir ${OUT_DIR}/assembly-${PREFIX}
+	conda deactivate
 	infoseq --only --length --name ${OUT_DIR}/assembly-${PREFIX}/assembly.fasta | awk '{print $2, $1}' | 
 		sort -nr | head -n8 | cut -d' ' -f2 > ${OUT_DIR}/assembly-${PREFIX}/best_contigs
 	fastaUtils.pl -u ${OUT_DIR}/assembly-${PREFIX}/assembly.fasta | 
@@ -54,6 +56,7 @@ if [ $flyeflag == true ]; then
 	ASSEMBLY=${OUT_DIR}/assembly-${PREFIX}/raw-${PREFIX}.fasta
 fi
 
+conda activate mock-env
 ##evaluation using metaquast
 if [ $metaquastflag == true ]; then
     metaquast.py --no-icarus --fragmented --min-identity 90 --min-contig 5000 \
