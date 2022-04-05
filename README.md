@@ -296,6 +296,6 @@ and for quantizer (Q2, Q8) run:
 ./pipeline-mock-community.sh Q2 Q8
 ```
 ### Results
-Mismatches per 100kbp count can be found in report.txt files for each run in ./bins/QxQx/output/mQ_report_RUN/ directory.
-For example, performance evaluation of Medaka run using quantizer Q4 are in ./bins/Q4Q4/output/mQ_report_medaka/report.txt file.
+Mismatches per 100kbp count can be found for each run in ./bins/QxQx/output/mQ_report_RUN/summary/TXT/num_mismatches_per_100_kbp.txt file.
+For example, performance evaluation of Medaka run using quantizer Q4 are in ./bins/Q4Q4/output/mQ_report_medaka/summary/TXT/num_mismatches_per_100_kbp.txt file.
 
