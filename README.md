@@ -124,8 +124,8 @@ and for quantizer (Q2, Q8) run:
 ```
 
 ### Results
-Metrics of variant calling performance evaluation are in ´XXx_happy.output.summary.csv´ files for each run in ´./bins/QxQx/report/´ directory.
-For example, metrics of performance evaluation using quantizer Q4 and coverage 50x are in ./bins/Q4Q4/report/50x_happy.output.summary.csv file.
+Metrics of variant calling performance evaluation are in `XXx_happy.output.summary.csv` files for each run in `./bins/QxQx/report/` directory.
+For example, metrics of performance evaluation using quantizer Q4 and coverage 50x are in `./bins/Q4Q4/report/50x_happy.output.summary.csv` file.
 
 
 ## Assembly and Polishing of human genome
@@ -133,7 +133,7 @@ For example, metrics of performance evaluation using quantizer Q4 and coverage 5
 We evaluated the impact of quality score quantization on human genome assembly polishing for sample HG00733 with the polishing pipelines MP and Helen. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/32686750/). We used wtdbg2 for human genome assembly and Margin Polish/HELEN pipeline for polishing. These polishing pipelines were executed both for the orginal FASTQ files and for 4 bin quantized data. We carried on this comparison for several coverage scenarios, which we obtained by randomly selecting a fraction of the dataset reads. [pipeline-human-assembly.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Human%20Assembly/pipeline-human-assembly.sh) is the script used for these experiments.
 
 ### Software setup
-For running this experiments we used the conda environment human-env created in the previous section. 
+For running this experiments we used the conda environment `human-env` created in the previous section. 
 
 For installing marginPolish run the following commands (marginPolish not available for installation with conda) 
 
@@ -211,11 +211,11 @@ and for quantizer (Q2, Q8) run:
 ./pipeline-human-assembly.sh Q2 Q8
 ```
 
-Specify used percentaje of reads changing value of variable FRACTION in the script. i.e. for 20% run, set FRACTION in "20".
+Specify used percentaje of reads changing value of variable FRACTION in the script. i.e. for 20% run, set FRACTION in `"20"`.
 
 ### Results
-Mismatches per 100kbp count can be found in report.txt file in QUAST directory.
-For example, metrics or marginPolish performance evaluation using quantizer Q4 and 20% or reads are in ./wtdbg2-20/MP-4bin-20-1/QUAST/report.txt file.
+Mismatches per 100kbp count can be found in `report.txt` file in `QUAST` directory.
+For example, metrics or marginPolish performance evaluation using quantizer Q4 and 20% or reads are in `./wtdbg2-20/MP-4bin-20-1/QUAST/report.txt` file.
 
 
 
@@ -305,6 +305,6 @@ and for quantizer (Q2, Q8) run:
 ./pipeline-mock-community.sh Q2 Q8
 ```
 ### Results
-Mismatches per 100kbp count can be found for each run in ./bins/QxQx/output/mQ_report_RUN/summary/TXT/num_mismatches_per_100_kbp.txt file.
-For example, performance evaluation of Medaka run using quantizer Q4 are in ./bins/Q4Q4/output/mQ_report_medaka/summary/TXT/num_mismatches_per_100_kbp.txt file.
+Mismatches per 100kbp count can be found for each run in `./bins/QxQx/output/mQ_report_RUN/summary/TXT/num_mismatches_per_100_kbp.txt` file.
+For example, performance evaluation of Medaka run using quantizer Q4 are in `./bins/Q4Q4/output/mQ_report_medaka/summary/TXT/num_mismatches_per_100_kbp.txt` file.
 
