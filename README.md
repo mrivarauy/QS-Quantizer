@@ -215,7 +215,7 @@ Specify used percentaje of reads changing value of variable FRACTION in the scri
 
 ### Results
 Mismatches per 100kbp count can be found in report.txt file in QUAST directory.
-For example, metrics or marginPolish performance evaluation using quantizer Q4 and 20% or reads are in ./wtdbg2-20/MP-4bin-20p-1/QUAST/report.txt file.
+For example, metrics or marginPolish performance evaluation using quantizer Q4 and 20% or reads are in ./wtdbg2-20/MP-4bin-20-1/QUAST/report.txt file.
 
 
 
