@@ -124,7 +124,7 @@ and for quantizer (Q2, Q8) run:
 ```
 
 ### Results
-Metrics of variant calling performance evaluation are in XXx_happy.output.summary.csv files for each run in ./bins/QxQx/report/ directory.
+Metrics of variant calling performance evaluation are in ´XXx_happy.output.summary.csv´ files for each run in ./bins/QxQx/report/ directory.
 For example, metrics of performance evaluation using quantizer Q4 and coverage 50x are in ./bins/Q4Q4/report/50x_happy.output.summary.csv file.
 
 
