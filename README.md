@@ -77,7 +77,13 @@ quantizer.py [optional arguments] input_file Qprimary Qrun output_file
 We compared the nanopore variant calling performance of PEPPER-Margin-DeepVariant on human sample HG003, against variant calling on quantized versions of the same data. We performed this comparison at various coverages, ranging from 20X to 90X, and for various quantizers. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/34725481/). We used [pipeline-variant-calling.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/pipeline-variant-calling.sh) script for these experiments.
 
 ### Software setup
-For running this experiments we used the conda environment human-env created in the previous section. PEPPER-Margin-DeepVariant (variant caller) and hap.py (for evaluating) are used through singularity so no installation is needed.
+
+Creating an environment with software versions we used.
+```
+conda create -n human-env -c bioconda python=3.6 minimap2=2.15  quast=5.0.2 samtools=1.9 wtdbg=2.3 
+```
+
+PEPPER-Margin-DeepVariant (variant caller) and hap.py (for evaluating) are used through singularity so no installation is needed.
 Click [here](https://sylabs.io/guides/3.0/user-guide/installation.html) for singularity installation on Ubuntu.
 
 ### Data setup
@@ -127,11 +133,7 @@ For example, metrics of performance evaluation using quantizer Q4 and coverage 5
 We evaluated the impact of quality score quantization on human genome assembly polishing for sample HG00733 with the polishing pipelines MP and Helen. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/32686750/). We used wtdbg2 for human genome assembly and Margin Polish/HELEN pipeline for polishing. These polishing pipelines were executed both for the orginal FASTQ files and for 4 bin quantized data. We carried on this comparison for several coverage scenarios, which we obtained by randomly selecting a fraction of the dataset reads. [pipeline-human-assembly.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Human%20Assembly/pipeline-human-assembly.sh) is the script used for these experiments.
 
 ### Software setup
-
-Creating an environment with software versions we used.
-```
-conda create -n human-env -c bioconda python=3.6 minimap2=2.15  quast=5.0.2 samtools=1.9 wtdbg=2.3 
-```
+For running this experiments we used the conda environment human-env created in the previous section. 
 
 For installing marginPolish run the following commands (marginPolish not available for installation with conda) 
 
@@ -254,26 +256,12 @@ Unzip directory
 ```
 tar -xvzf medaka-0.5.0.tar.gz
 ```
-This old version has dependencies problems, so we modified two lines in requirements.txt file in order to make installation possible.
-Changes are:
-- numpy==1.19.2 instead of numpy
-- tensorflow instead of tensorflow==1.12.0
-- change places between numpy line and tensorflow line
+Installing software
+```
+cd medaka-0.5.0
+make install
+```
 
-After that requirements.txt file should look like this:
-
-````
-# medaka requirements. 
-# Add comments to keep track of why we are using particular versions
-biopython
-cffi
-h5py
-intervaltree
-keras==2.1.6 #has CuDNNGRU-compatible GRU
-numpy==1.19.2
-tensorflow #this comes with keras 2.1.6 so a safe bet
-pysam
-````
 Installing flye in a different environment:
 ```
 conda create -n flye-env -c bioconda flye=2.8.2
