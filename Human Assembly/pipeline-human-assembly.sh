@@ -16,8 +16,8 @@ REF_DIR=./truth-assemblies/hg00733_truth_assembly.fa #assembly reference, used f
 wtdbgflag=true
 marginflag=true
 quastmargin=true
-helenflag=false
-quasthelen=false
+helenflag=true
+quasthelen=true
 # -----------------------------
 
 source activate human-env
