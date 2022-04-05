@@ -56,7 +56,7 @@ if [ $flyeflag == true ]; then
 	ASSEMBLY=${OUT_DIR}/assembly-${PREFIX}/raw-${PREFIX}.fasta
 fi
 
-source activate ../mock-env/
+source activate mock-env
 ##evaluation using metaquast
 if [ $metaquastflag == true ]; then
     metaquast.py --no-icarus --fragmented --min-identity 90 --min-contig 5000 \
@@ -79,7 +79,7 @@ fi
 
 ## polishing using medaka (requires previous racon polishing)
 if [ $medakaflag == true ]; then
-	. ../medaka/venv/bin/activate
+	. ../medaka-0.5.0/venv/bin/activate
     medaka_consensus -i ${READS_QUAN} -d ${OUT_DIR}/racon_r1-${PREFIX}.fasta -o ${OUT_DIR}/r1-medaka-${PREFIX} -m ${MEDAKA_MODEL} -t ${NPROC}
     mv ${OUT_DIR}/r1-medaka-${PREFIX}/consensus.fasta ${OUT_DIR}/r1-medaka-${PREFIX}.fasta && rm -rf ${OUT_DIR}/r1-medaka-${PREFIX}
     medaka_consensus -i ${READS_QUAN} -d ${OUT_DIR}/racon_r2-${PREFIX}.fasta -o ${OUT_DIR}/r2-medaka-${PREFIX} -m ${MEDAKA_MODEL} -t ${NPROC}
