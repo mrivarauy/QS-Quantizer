@@ -72,6 +72,142 @@ quantizer.py [optional arguments] input_file Qprimary Qrun output_file
 | -h, --help                  | Show this help message and exit                                                                                          |
 
 
+## Variant Calling
+
+We compared the nanopore variant calling performance of PEPPER-Margin-DeepVariant on human sample HG003, against variant calling on quantized versions of the same data. We performed this comparison at various coverages, ranging from 20X to 90X, and for various quantizers. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/34725481/). We used [pipeline-variant-calling.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/pipeline-variant-calling.sh) script for these experiments.
+
+### Software setup
+For running this experiments we used the conda environment human-env created in the previous section. PEPPER-Margin-DeepVariant (variant caller) and hap.py (for evaluating) are used through singularity so no installation is needed.
+Click [here](https://sylabs.io/guides/3.0/user-guide/installation.html) for singularity installation on Ubuntu.
+
+### Data setup
+Creating directory structure
+```
+mkdir human-vc
+cd human-vc
+mkdir bins ref_dir original-fastq
+
+```
+Downloading required data
+
+```
+wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark.vcf.gz #download truth variants file
+wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark.vcf.gz.tbi #download truth variants file
+wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed #download bed file for performance evaluation
+wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz # download human genome reference GRCh38
+wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.fai # download human genome reference GRCh38
+wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_1_Guppy_4.2.2_prom.fastq.gz # download fastq files
+wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_2_Guppy_4.2.2_prom.fastq.gz # download fastq files
+wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_3_Guppy_4.2.2_prom.fastq.gz # download fastq files
+wget -P ../ https://raw.githubusercontent.com/mrivarauy/QS-Quantizer/main/quantizer.py?token=GHSAT0AAAAAABR6SEXZIOTAKYGBJFEJ6X6IYRPMKLA #download quantizer script
+```
+
+### Pipeline execution
+For variant calling pipeline execution using quantizer Qx run the command:
+
+```
+./pipeline-variant-calling.sh Qx Qx
+```
+For example, for quantizer Q4 run:
+```
+./pipeline-variant-calling.sh Q4 Q4
+```
+and for quantizer (Q2, Q8) run:
+```
+./pipeline-variant-calling.sh Q2 Q8
+```
+
+### Results
+Metrics of variant calling performance evaluation are in XXx_happy.output.summary.csv files for each run in ./bins/QxQx/report/ directory.
+For example, metrics of performance evaluation using quantizer Q4 and coverage 50x are in ./bins/Q4Q4/report/50x_happy.output.summary.csv file.
+
+
+## Assembly and Polishing of human genome
+
+We evaluated the impact of quality score quantization on human genome assembly polishing for sample HG00733 with the polishing pipelines MP and Helen. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/32686750/). We used wtdbg2 for human genome assembly and Margin Polish/HELEN pipeline for polishing. These polishing pipelines were executed both for the orginal FASTQ files and for 4 bin quantized data. We carried on this comparison for several coverage scenarios, which we obtained by randomly selecting a fraction of the dataset reads. [pipeline-human-assembly.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Human%20Assembly/pipeline-human-assembly.sh) is the script used for these experiments.
+
+### Software setup
+
+Creating an environment with software versions we used.
+```
+conda create -n human-env -c bioconda python=3.6 minimap2=2.15  quast=5.0.2 samtools=1.9 wtdbg=2.3 
+```
+
+For installing marginPolish run the following commands (marginPolish not available for installation with conda) 
+
+**Install dependencies**
+```
+apt-get -y install git make gcc g++ autoconf zlib1g-dev libcurl4-openssl-dev libbz2-dev libhdf5-dev
+```
+
+**Compilation**
+
+Check out the repository and submodules:
+````
+git clone https://github.com/UCSC-nanopore-cgl/marginPolish.git
+cd marginPolish
+git submodule update --init
+````
+Make build directory:
+```
+mkdir build
+cd build
+```
+Generate Makefile and run:
+```
+cmake ..
+make
+./marginPolish
+cd ../../
+```
+
+HELEN is used through docker so installation is not needed. 
+
+Click [here](https://docs.docker.com/engine/install/ubuntu/) for Ubuntu docker installation. If not configured for running on Rootless mode check this [link](https://docs.docker.com/engine/security/rootless/) or change [pipeline-human-assembly.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Human%20Assembly/pipeline-human-assembly.sh) script to be executed with sudo permission. 
+
+
+### Data setup
+Creating directory structure
+```
+mkdir human-assembly
+cd human-assembly
+mkdir truth-assemblies input helen-models 
+```
+Downloading required data
+```
+wget -P ./truth-assemblies https://storage.googleapis.com/kishwar-helen/truth_assemblies/HG00733/hg00733_truth_assembly.fa #download truth assembly
+wget -P ./input -c https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG00733/nanopore/HG00733_2.fastq.gz #download fastq file
+wget -P ../helen-models https://storage.googleapis.com/kishwar-helen/helen_trained_models/v0.0.1/r941_flip231_v001.pkl #download helen-model
+wget https://raw.githubusercontent.com/aseetharam/common_scripts/master/sample_fastq.py #download subsampling script
+```
+Subsampling fastq files
+
+For downsampling to xx% of the reads use the command:
+```
+python -u sample_fastq.py -f 0.xx ./input/HG00733_2.fastq ./input/HG00733_2-xxp.fastq
+```
+For example, for 20% run:
+```
+python -u sample_fastq.py -f 0.2 ./input/HG00733_2.fastq ./input/HG00733_2-20p.fastq
+```
+and for 60% run:
+```
+python -u sample_fastq.py -f 0.6 ./input/HG00733_2.fastq ./input/HG00733_2-60p.fastq
+```
+
+### Pipeline execution
+For pipeline execution run the following command
+```
+./pipeline-human-assembly.sh 
+```
+For different runs change value of variables FRACTION and QUANT in the script. i.e. for 20% 4bin run, set FRACTION in "20" and QUANT in "4bin"
+
+### Results
+Mismatches per 100kbp count can be found in report.txt file in QUAST directory.
+
+
+
+
 ## Assembly and Polishing of mock community
 
 We evaluated the impact of quality score quantization on the genome assembly polishing for a Zymo-BIOMICS Microbial Community Standard. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/31089679/). We assembled the genomes with Flye, and we polished this raw assembly using various polishing pipelines (Racon, Medaka, MarginPolish and HELEN). We tested each polishing pipeline on the original (non-quantized) data, and in various quantized versions. [pipeline-mock-community.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/mock-assembly-polishing/pipeline-mock-community.sh) is the script used for these experiments.
@@ -175,135 +311,3 @@ and for quantizer (Q2, Q8) run:
 Mismatches per 100kbp count can be found in report.txt files for each run in ./bins/QxQx/output/mQ_report_RUN/ directory.
 For example, performance evaluation of Medaka run using quantizer Q4 are in ./bins/Q4Q4/output/mQ_report_medaka/report.txt file.
 
-
-## Assembly and Polishing of human genome
-
-We evaluated the impact of quality score quantization on human genome assembly polishing for sample HG00733 with the polishing pipelines MP and Helen. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/32686750/). We used wtdbg2 for human genome assembly and Margin Polish/HELEN pipeline for polishing. These polishing pipelines were executed both for the orginal FASTQ files and for 4 bin quantized data. We carried on this comparison for several coverage scenarios, which we obtained by randomly selecting a fraction of the dataset reads. [pipeline-human-assembly.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Human%20Assembly/pipeline-human-assembly.sh) is the script used for these experiments.
-
-### Software setup
-
-Creating an environment with software versions we used.
-```
-conda create -n human-env -c bioconda python=3.6 minimap2=2.15  quast=5.0.2 samtools=1.9 wtdbg=2.3 
-```
-
-For installing marginPolish run the following commands (marginPolish not available for installation with conda) 
-
-**Install dependencies**
-```
-apt-get -y install git make gcc g++ autoconf zlib1g-dev libcurl4-openssl-dev libbz2-dev libhdf5-dev
-```
-
-**Compilation**
-
-Check out the repository and submodules:
-````
-git clone https://github.com/UCSC-nanopore-cgl/marginPolish.git
-cd marginPolish
-git submodule update --init
-````
-Make build directory:
-```
-mkdir build
-cd build
-```
-Generate Makefile and run:
-```
-cmake ..
-make
-./marginPolish
-cd ../../
-```
-
-HELEN is used through docker so installation is not needed. 
-
-Click [here](https://docs.docker.com/engine/install/ubuntu/) for Ubuntu docker installation. If not configured for running on Rootless mode check this [link](https://docs.docker.com/engine/security/rootless/) or change [pipeline-human-assembly.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Human%20Assembly/pipeline-human-assembly.sh) script to be executed with sudo permission. 
-
-
-### Data setup
-Creating directory structure
-```
-mkdir human-assembly
-cd human-assembly
-mkdir truth-assemblies input helen-models 
-```
-Downloading required data
-```
-wget -P ./truth-assemblies https://storage.googleapis.com/kishwar-helen/truth_assemblies/HG00733/hg00733_truth_assembly.fa #download truth assembly
-wget -P ./input -c https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG00733/nanopore/HG00733_2.fastq.gz #download fastq file
-wget -P ../helen-models https://storage.googleapis.com/kishwar-helen/helen_trained_models/v0.0.1/r941_flip231_v001.pkl #download helen-model
-wget https://raw.githubusercontent.com/aseetharam/common_scripts/master/sample_fastq.py #download subsampling script
-```
-Subsampling fastq files
-
-For downsampling to xx% of the reads use the command:
-```
-python -u sample_fastq.py -f 0.xx ./input/HG00733_2.fastq ./input/HG00733_2-xxp.fastq
-```
-For example, for 20% run:
-```
-python -u sample_fastq.py -f 0.2 ./input/HG00733_2.fastq ./input/HG00733_2-20p.fastq
-```
-and for 60% run:
-```
-python -u sample_fastq.py -f 0.6 ./input/HG00733_2.fastq ./input/HG00733_2-60p.fastq
-```
-
-### Pipeline execution
-For pipeline execution run the following command
-```
-./pipeline-human-assembly.sh 
-```
-For different runs change value of variables FRACTION and QUANT in the script. i.e. for 20% 4bin run, set FRACTION in "20" and QUANT in "4bin"
-
-### Results
-Mismatches per 100kbp count can be found in report.txt file in QUAST directory.
-
-## Variant Calling
-
-We compared the nanopore variant calling performance of PEPPER-Margin-DeepVariant on human sample HG003, against variant calling on quantized versions of the same data. We performed this comparison at various coverages, ranging from 20X to 90X, and for various quantizers. We used data generated in this [article](https://pubmed.ncbi.nlm.nih.gov/34725481/). We used [pipeline-variant-calling.sh](https://github.com/mrivarauy/QS-Quantizer/blob/main/Variant%20Calling/pipeline-variant-calling.sh) script for these experiments.
-
-### Software setup
-For running this experiments we used the conda environment human-env created in the previous section. PEPPER-Margin-DeepVariant (variant caller) and hap.py (for evaluating) are used through singularity so no installation is needed.
-Click [here](https://sylabs.io/guides/3.0/user-guide/installation.html) for singularity installation on Ubuntu.
-
-### Data setup
-Creating directory structure
-```
-mkdir human-vc
-cd human-vc
-mkdir bins ref_dir original-fastq
-
-```
-Downloading required data
-
-```
-wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark.vcf.gz #download truth variants file
-wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark.vcf.gz.tbi #download truth variants file
-wget -P ./ref_dir https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/AshkenazimTrio/HG003_NA24149_father/NISTv4.2.1/GRCh38/HG003_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed #download bed file for performance evaluation
-wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz # download human genome reference GRCh38
-wget -P ./ref_dir https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.fai # download human genome reference GRCh38
-wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_1_Guppy_4.2.2_prom.fastq.gz # download fastq files
-wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_2_Guppy_4.2.2_prom.fastq.gz # download fastq files
-wget -P ./original-fastq https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG003/nanopore/Guppy_4.2.2/GM24149_3_Guppy_4.2.2_prom.fastq.gz # download fastq files
-wget -P ../ https://raw.githubusercontent.com/mrivarauy/QS-Quantizer/main/quantizer.py?token=GHSAT0AAAAAABR6SEXZIOTAKYGBJFEJ6X6IYRPMKLA #download quantizer script
-```
-
-### Pipeline execution
-For variant calling pipeline execution using quantizer Qx run the command:
-
-```
-./pipeline-variant-calling.sh Qx Qx
-```
-For example, for quantizer Q4 run:
-```
-./pipeline-variant-calling.sh Q4 Q4
-```
-and for quantizer (Q2, Q8) run:
-```
-./pipeline-variant-calling.sh Q2 Q8
-```
-
-### Results
-Metrics of variant calling performance evaluation are in XXx_happy.output.summary.csv files for each run in ./bins/QxQx/report/ directory.
-For example, metrics of performance evaluation using quantizer Q4 and coverage 50x are in ./bins/Q4Q4/report/50x_happy.output.summary.csv file.
