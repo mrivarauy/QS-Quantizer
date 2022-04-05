@@ -186,23 +186,32 @@ Subsampling fastq files
 
 For downsampling to xx% of the reads use the command:
 ```
-python -u sample_fastq.py -f 0.xx ./input/HG00733_2.fastq ./input/HG00733_2-xxp.fastq
+python -u sample_fastq.py -f 0.xx ./input/HG00733_2.fastq ./input/HG00733_2-xx.fastq
 ```
 For example, for 20% run:
 ```
-python -u sample_fastq.py -f 0.2 ./input/HG00733_2.fastq ./input/HG00733_2-20p.fastq
+python -u sample_fastq.py -f 0.2 ./input/HG00733_2.fastq ./input/HG00733_2-20.fastq
 ```
 and for 60% run:
 ```
-python -u sample_fastq.py -f 0.6 ./input/HG00733_2.fastq ./input/HG00733_2-60p.fastq
+python -u sample_fastq.py -f 0.6 ./input/HG00733_2.fastq ./input/HG00733_2-60.fastq
 ```
 
 ### Pipeline execution
-For pipeline execution run the following command
+For pipeline execution using quantizer Qx run the command:
 ```
-./pipeline-human-assembly.sh 
+./pipeline-human-assembly.sh Qx Qx
 ```
-For different runs change value of variables FRACTION and QUANT in the script. i.e. for 20% 4bin run, set FRACTION in "20" and QUANT in "4bin"
+For example, for quantizer Q4 run:
+```
+./pipeline-human-assembly.sh Q4 Q4
+```
+and for quantizer (Q2, Q8) run:
+```
+./pipeline-human-assembly.sh Q2 Q8
+```
+
+Specify used percentaje of reads changing value of variable FRACTION in the script. i.e. for 20% run, set FRACTION in "20".
 
 ### Results
 Mismatches per 100kbp count can be found in report.txt file in QUAST directory.
